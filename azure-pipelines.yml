@@ -36,5 +36,11 @@ stages:
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'myAKScnp'
-        manifests: deployment/deployment.yml|deployment/service.yml
+        manifests: deployment/deployment.yml
           
+    - task: KubernetesManifest@0
+      displayName: deploy to AKS cluster
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'myAKScnp'
+        manifests: deployment/service.yml
