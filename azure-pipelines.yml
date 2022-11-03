@@ -32,15 +32,15 @@ stages:
         tags: |
           $(tag)
     - task: KubernetesManifest@0
-      displayName: deploy to AKS cluster
+      displayName: deploy pod to AKS cluster
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'myAKScnp'
-        manifests: deployment/deployment.yml
+        manifests: deployment/deployment.yaml
           
     - task: KubernetesManifest@0
-      displayName: deploy to AKS cluster
+      displayName: deploy service to AKS cluster
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'myAKScnp'
-        manifests: deployment/service.yml
+        manifests: deployment/service.yaml
