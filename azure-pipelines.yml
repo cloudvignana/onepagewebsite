@@ -36,7 +36,5 @@ stages:
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'myAKScnp'
-        manifests: |
-          - 'deployment/deployment.yaml' 
-          - 'deployment/service.yaml'
+        manifests: deployment/deployment.yml|deployment/service.yml
           
