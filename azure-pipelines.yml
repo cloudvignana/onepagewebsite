@@ -32,7 +32,7 @@ stages:
                 $(tag)
 
 
-  - stage: helm chart deploy
+  - stage: helmchartdeploy
     displayName: Build and deply helm chart stage
     jobs:
       - job: Build
