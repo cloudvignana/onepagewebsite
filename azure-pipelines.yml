@@ -61,5 +61,4 @@ stages:
                 chartType: 'FilePath'
                 chartPath: './kubernetes/onepagewebsite-chart'
                 valueFile: './kubernetes/values.yaml'
-                recreate: true
                 resetValues: true
