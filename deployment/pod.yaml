@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: singlepagewebsite-pod
+    labels: 
+       app-name: dojo-ui
+
+spec:
+  containers:
+    - name: singlepagewebsite
+      image: sairamkrishna1235/onepagewebsite

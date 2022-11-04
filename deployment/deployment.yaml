@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dojo-ui-deployment
+spec:
+  selector:
+    matchLabels:
+      app: dojo-ui
+#  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: dojo-ui
+    spec:
+      containers:
+      - name: dojo-ui
+        image: sairamkrishna1235/onepagewebsite
+        ports:
+        - containerPort: 8090
