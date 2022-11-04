@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 8090;
+const port = 80;
 const HOST = '0.0.0.0';
 
 app.use(express.json());

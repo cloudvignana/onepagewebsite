@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onepagewebsite-deployment
+spec:
+  selector:
+    matchLabels:
+      app: onepagewebsite-ui
+  template:
+    metadata:
+      labels:
+        app: onepagewebsite-ui
+    spec:
+      containers:
+      - name: onepagewebsite-ui
+        image: {{ .Values.image.name }}
+        resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+        ports:
+        - containerPort: 80
