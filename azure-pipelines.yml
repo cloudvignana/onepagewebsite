@@ -40,10 +40,10 @@ stages:
         pool:
           vmImage: $(vmImageName)
         steps:
-          - task: HelmInstaller@0
-            inputs:
-             helmVersion: '2.14.1'
-             installKubectl: true
+#          - task: HelmInstaller@0
+#            inputs:
+#             helmVersion: '2.14.1'
+#             installKubectl: true
              
           - task: HelmDeploy@0
             inputs:
@@ -54,4 +54,4 @@ stages:
               command: 'install'
               chartType: 'FilePath'
               chartPath: './kubernetes/onepagewebsite-chart'
-              valueFile: 'values.yaml'
+              valueFile: './kubernetes/values.yaml'
