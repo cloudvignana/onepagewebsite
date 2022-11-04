@@ -45,13 +45,13 @@ stages:
              helmVersion: '2.14.1'
              installKubectl: true
              
-             - task: HelmDeploy@0
-               inputs:
-                 connectionType: 'Azure Resource Manager'
-                 azureSubscription: 'Free Trial (7bf67c8b-4ebc-4fa2-9334-d997d7949f99)'
-                 azureResourceGroup: 'cna-k8s'
-                 kubernetesCluster: 'cna-platform-dev'
-                 command: 'install'
-                 chartType: 'FilePath'
-                 chartPath: './onepagewebsite-chart'
-                 valueFile: 'values.yaml'
+        - task: HelmDeploy@0
+          inputs:
+             connectionType: 'Azure Resource Manager'
+             azureSubscription: 'Free Trial (7bf67c8b-4ebc-4fa2-9334-d997d7949f99)'
+             azureResourceGroup: 'cna-k8s'
+             kubernetesCluster: 'cna-platform-dev'
+             command: 'install'
+             chartType: 'FilePath'
+             chartPath: './onepagewebsite-chart'
+             valueFile: 'values.yaml'
