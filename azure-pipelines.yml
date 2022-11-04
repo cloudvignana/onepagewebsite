@@ -1,46 +1,45 @@
-
 trigger:
-- develop
+  - develop
 
 resources:
-- repo: self
+  - repo: self
 
 variables:
-  dockerRegistryServiceConnection: '5c20c0f6-280d-420c-8170-36634a3c9c31'
-  imageRepository: 'cloudvignanaonepagewebsite'
-  containerRegistry: 'azurecnappacr.azurecr.io'
-  dockerfilePath: 'Dockerfile'
-  tag: '$(Build.BuildId)'
-  vmImageName: 'ubuntu-latest'
+  dockerRegistryServiceConnection: "5c20c0f6-280d-420c-8170-36634a3c9c31"
+  imageRepository: "cloudvignanaonepagewebsite"
+  containerRegistry: "azurecnappacr.azurecr.io"
+  dockerfilePath: "Dockerfile"
+  tag: "latest"
+  vmImageName: "ubuntu-latest"
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
-    - task: KubernetesManifest@0
-      displayName: deploy pod to AKS cluster
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: 'myAKScnp'
-        manifests: deployment/deployment.yaml
-          
-    - task: KubernetesManifest@0
-      displayName: deploy service to AKS cluster
-      inputs:
-        action: 'deploy'
-        kubernetesServiceConnection: 'myAKScnp'
-        manifests: deployment/service.yaml
+  - stage: Build
+    displayName: Build and push stage
+    jobs:
+      - job: Build
+        displayName: Build
+        pool:
+          vmImage: $(vmImageName)
+        steps:
+          - task: Docker@2
+            displayName: Build and push an image to container registry
+            inputs:
+              command: buildAndPush
+              repository: $(imageRepository)
+              dockerfile: $(dockerfilePath)
+              containerRegistry: $(dockerRegistryServiceConnection)
+              tags: |
+                $(tag)
+          # - task: KubernetesManifest@0
+          #   displayName: deploy pod to AKS cluster
+          #   inputs:
+          #     action: "deploy"
+          #     kubernetesServiceConnection: "myAKScnp"
+          #     manifests: deployment/deployment.yaml
+
+          # - task: KubernetesManifest@0
+          #   displayName: deploy service to AKS cluster
+          #   inputs:
+          #     action: "deploy"
+          #     kubernetesServiceConnection: "myAKScnp"
+          #     manifests: deployment/service.yaml
