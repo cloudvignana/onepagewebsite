@@ -53,5 +53,5 @@ stages:
               kubernetesCluster: 'cna-platform-dev'
               command: 'install'
               chartType: 'FilePath'
-              chartPath: './onepagewebsite-chart'
+              chartPath: './kubernetes/onepagewebsite-chart'
               valueFile: 'values.yaml'
