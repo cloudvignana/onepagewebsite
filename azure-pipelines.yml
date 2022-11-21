@@ -1,5 +1,5 @@
 trigger:
-  - develop
+  - none
 
 resources:
   - repo: self
@@ -30,16 +30,35 @@ stages:
               containerRegistry: $(dockerRegistryServiceConnection)
               tags: |
                 $(tag)
-          # - task: KubernetesManifest@0
-          #   displayName: deploy pod to AKS cluster
-          #   inputs:
-          #     action: "deploy"
-          #     kubernetesServiceConnection: "myAKScnp"
-          #     manifests: deployment/deployment.yaml
 
-          # - task: KubernetesManifest@0
-          #   displayName: deploy service to AKS cluster
+
+  - stage: helmchartdeploy
+    displayName: Build and deply helm chart stage
+    jobs:
+      - job: Build
+        displayName: deploy
+        pool:
+          vmImage: $(vmImageName)
+        steps:           
+          # - task: HelmDeploy@0
           #   inputs:
-          #     action: "deploy"
-          #     kubernetesServiceConnection: "myAKScnp"
-          #     manifests: deployment/service.yaml
+          #     connectionType: 'Azure Resource Manager'
+          #     azureSubscription: 'Free Trial (7bf67c8b-4ebc-4fa2-9334-d997d7949f99)'
+          #     azureResourceGroup: 'cna-k8s'
+          #     kubernetesCluster: 'cna-platform-dev'
+          #     command: 'install'
+          #     chartType: 'FilePath'
+          #     chartPath: './kubernetes/onepagewebsite-chart'
+          #     valueFile: './kubernetes/values.yaml'
+
+            - task: HelmDeploy@0
+              inputs:
+                connectionType: 'Azure Resource Manager'
+                azureSubscription: 'Free Trial (7bf67c8b-4ebc-4fa2-9334-d997d7949f99)'
+                azureResourceGroup: 'cna-k8s'
+                kubernetesCluster: 'cna-platform-dev'
+                command: 'upgrade'
+                chartType: 'FilePath'
+                chartPath: './kubernetes/onepagewebsite-chart'
+                valueFile: './kubernetes/values.yaml'
+                resetValues: true
