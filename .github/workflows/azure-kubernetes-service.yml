@@ -32,7 +32,7 @@ name: Build and deploy an app to AKS
 on: workflow_dispatch
 
 env:
-  AZURE_CONTAINER_REGISTRY: "azurecnapp.azurecr.io"
+  AZURE_CONTAINER_REGISTRY: "azurecnapp"
   CONTAINER_NAME: "cloudvignanaonepagewebsite"
   RESOURCE_GROUP: "k8s"
   CLUSTER_NAME: "cna-platform-Prod"
