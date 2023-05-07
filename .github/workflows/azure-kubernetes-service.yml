@@ -9,8 +9,24 @@ env:
   RESOURCE_GROUP: "k8s"
   CLUSTER_NAME: "cna-platform-Prod"
   DEPLOYMENT_MANIFEST_PATH: "deployment"
+  IMAGE_TAG: "latest" # default github.sha
 
 jobs:
+  code-quality:
+    permissions:
+      contents: read
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: SonarCloud Scan 
+        uses: SonarSource/sonarcloud-github-action@v1.7
+        env:          
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          
+      
   build-image:
     permissions:
       contents: read
@@ -20,14 +36,14 @@ jobs:
       # Checks out the repository this file is in
       - uses: actions/checkout@v3
 
-      # Logs in with your Azure credentials
+      # Logs in with  Azure credentials
       - name: Azure login
         uses: azure/login@v1.4.6
         with:
           creds: "${{ secrets.AZURE_CREDENTIALS }}"
 
-      # Builds and pushes an image up to your Azure Container Registry
+      # Builds and pushes an image up to  Azure Container Registry
       - name: Build and push image to ACR
         run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ IMAGE_TAG }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
 
