@@ -5,9 +5,10 @@
     "author": "Sairam L",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+        "start": "node server.js"
     },
     "dependencies": {
-      "express": "^4.21.2"
+        "express": "^4.21.2",
+        "express-rate-limit": "^8.0.1"
     }
-  }
+}
